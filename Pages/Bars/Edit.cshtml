@@ -1,0 +1,50 @@
+﻿@page
+@model NewSound.Pages.Bars.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Bar</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Bar.BarID" />
+            <div class="form-group">
+                <label asp-for="Bar.Drink" class="control-label"></label>
+                <input asp-for="Bar.Drink" class="form-control" />
+                <span asp-validation-for="Bar.Drink" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Bar.Alkohol" class="control-label"></label>
+                <input asp-for="Bar.Alkohol" class="form-control" />
+                <span asp-validation-for="Bar.Alkohol" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Bar.Amount" class="control-label"></label>
+                <input asp-for="Bar.Amount" class="form-control" />
+                <span asp-validation-for="Bar.Amount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Bar.Ingredient" class="control-label"></label>
+                <input asp-for="Bar.Ingredient" class="form-control" />
+                <span asp-validation-for="Bar.Ingredient" class="text-danger"></span>
+            </div><br>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

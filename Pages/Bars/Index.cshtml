@@ -1,0 +1,100 @@
+﻿@page
+@model NewSound.Pages.Bars.IndexModel
+
+@{
+    ViewData["Title"] = "Bars";
+}
+
+<h1>Bars</h1>
+
+<p>
+    @if (User.Identity.IsAuthenticated)
+    {
+        <a asp-page="Create">Create New</a>
+    }
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Bars[0].Drink)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Bars[0].Alkohol)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Bars[0].Amount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Bars[0].Ingredient)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Bars) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Drink)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Alkohol)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Amount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Ingredient)
+            </td>
+            <td>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <a asp-page="./Edit" asp-route-id="@item.BarID">Edit</a>
+                }
+
+                | <a asp-page="./Index" asp-route-id="@item.BarID">Select</a> 
+
+                | <a asp-page="./Details" asp-route-id="@item.BarID">Details</a> |
+                
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <a asp-page="./Delete" asp-route-id="@item.BarID">Delete</a>
+                }
+            </td>
+        </tr>
+}
+    </tbody>
+</table><br>
+
+@if (Model.ConcertHalls != null)
+{
+    <h3>Concert houses that have this drink</h3>
+    <table class="table bg-black">
+        <tr>
+            <th>Place</th>
+            <th>Address</th>
+            <th>City</th>
+        </tr>
+
+        @foreach (var item in Model.ConcertHalls)
+        {
+            string selectedRow = "";
+            if (item.BarID == Model.BarID)
+            {
+                selectedRow = "table-success, bg-black";
+            }
+            <tr class="@selectedRow">
+                <td>
+                    @item.Place
+                </td>
+                <td>
+                    @item.Address
+                </td>
+                <td>
+                    @item.City
+                </td>
+            </tr>
+        }
+    </table>
+    <br>
+}

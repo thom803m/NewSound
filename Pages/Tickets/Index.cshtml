@@ -1,0 +1,75 @@
+﻿@page
+@model NewSound.Pages.Tickets.IndexModel
+
+@{
+    ViewData["Title"] = "Tickets";
+}
+
+<h1>Tickets</h1>
+
+<p>
+    @if (User.Identity.IsAuthenticated)
+    {
+        <a asp-page="Create">Create New</a>
+    }
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <a asp-page="./Index" asp-route-sortOrder="@Model.TitleSort">
+                    @Html.DisplayNameFor(model => model.Tickets[0].Title)
+                </a>
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Tickets[0].Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Tickets[0].Time)
+            </th>
+            <th>
+                <a asp-page="./Index" asp-route-sortOrder="@Model.DateSort">
+                    @Html.DisplayNameFor(model => model.Tickets[0].Date)
+                </a>
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Tickets[0].ConcertHall)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Tickets) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Time)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ConcertHall.Place)
+            </td>
+            <td>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <a asp-page="./Edit" asp-route-id="@item.TicketID">Edit</a>
+                }
+
+                | <a asp-page="./Details" asp-route-id="@item.TicketID">Details</a> |
+                
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <a asp-page="./Delete" asp-route-id="@item.TicketID">Delete</a>
+                }
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
